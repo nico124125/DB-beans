@@ -4,7 +4,7 @@ import sqlite3
 CREATE_BEANS_TABLE = "CREATE TABLE IF NOT EXISTS beans (id INTEGER PRIMARY KEY, name TEXT, method TEXT, rating INTEGER);"
 
 INSERT_BEAN = "INSERT INTO beans (name, method, rating) VALUES (?, ?, ?);"
-
+DELETE_BEAN_BY_NAME = "DELETE FROM beans WHERE name = ?;"
 GET_ALL_BEANS = "SELECT * FROM beans;"
 GET_BEANS_BY_NAME = "SELECT * FROM beans WHERE name = ?;"
 GET_BEST_PREPARATION_FOR_BEAN = """
@@ -41,4 +41,8 @@ def get_beans_by_name(connection, name):
 def get_best_preparation_for_bean(connection, name):
     with connection:
         return connection.execute(GET_BEST_PREPARATION_FOR_BEAN, (name, )).fetchone()
+
+def delete_bean_by_name(connection, name):
+    with connection:
+        return connection.execute(DELETE_BEAN_BY_NAME, (name, ))
 
